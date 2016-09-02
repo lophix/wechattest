@@ -6,7 +6,7 @@ package com.bean;
  * @Authuor Administrator
  * @Create 2016-09-02-10:09
  */
-public class Xml {
+public class XmlBean {
     private String appid;  //公众号ID
     private String mch_id;  //商户号
     private String device_info;  //设备号，非必填

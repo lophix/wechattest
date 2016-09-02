@@ -8,9 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>hello</title>
   </head>
   <body>
-  $END$
+  <h1>Hello world!</h1>
+  <a href="getcode.jsp">跳转支付页面</a>
+  <br>
+  <a href="http://weixin.win-sky.com.cn/testwechat/index.jsp">跳转服务器index</a>
   </body>
 </html>
