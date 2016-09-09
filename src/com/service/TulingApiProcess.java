@@ -25,7 +25,7 @@ public class TulingApiProcess {
      */
     public static String getTulingResult(String content) {
         //图灵机器人数据库接口
-        String APIKEY = "438cc658c632496fa4dc33511cb2674d";
+        String APIKEY = "17532a97aef910ad8747e7dd6ae00d0b";
         StringBuffer sb = new StringBuffer();
         String result = "";
         try {
@@ -48,8 +48,7 @@ public class TulingApiProcess {
             // 断开连接
             connection.disconnect();
             JSONObject json = JSONObject.fromObject(sb.toString());
-            System.out.println(json.toString());
-            //result = json.getString("text");
+            result = json.getString("text");
             reader.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -68,9 +67,7 @@ public class TulingApiProcess {
     public static void main(String[] args) throws IOException {
 
         String APIKEY = "438cc658c632496fa4dc33511cb2674d";
-        //String INFO = URLEncoder.encode("合肥天气", "utf-8");
         String INFO = "合肥天气";
-        //String getURL = "http://www.tuling123.com/openapi/api?key=" + APIKEY + "&info=" + INFO;
         String getURL = "http://www.tuling123.com/openapi/api?key=" + APIKEY + "&info=" + INFO;
         URL getUrl = new URL(getURL);
         HttpURLConnection connection = (HttpURLConnection) getUrl.openConnection();
@@ -96,8 +93,6 @@ public class TulingApiProcess {
         }
         result = new String(result.getBytes(), "UTF-8");
         System.out.println(result);
-
-
     }
 
 }

@@ -21,7 +21,7 @@ public class MyTest {
     public void test_textMessageToXml(){
         TextMessage textMessage = new TextMessage();
         textMessage.setToUserName("hello");
-        textMessage.setFromUserName("bye");
+        textMessage.setFromUserName("你好");
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
         textMessage.setFuncFlag(0);
@@ -33,7 +33,9 @@ public class MyTest {
     @Test
     public void test_processRequest() throws DocumentException {
         SAXReader reader = new SAXReader();
-        MyHttpRequest.sendPost("http://127.0.0.1:8080/wechat.do",reader.read(new File("wechat.xml")).getRootElement().asXML());
+        //String result = MyHttpRequest.sendPost("http://123.56.223.112/wechattest_war/wechat.do",reader.read(new File("wechat.xml")).getRootElement().asXML());
+        String result = MyHttpRequest.sendPost("http://127.0.0.1:8080/wechat.do",reader.read(new File("wechat.xml")).getRootElement().asXML());
+        System.out.println(result);
     }
 
     @Test

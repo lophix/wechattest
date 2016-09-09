@@ -49,51 +49,28 @@ public class CoreService {
 
             // 文本消息
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-                //微信聊天机器人测试 2015-3-31
                 if(content!=null){
                     respContent = TulingApiProcess.getTulingResult(content);
                     if(respContent==""||null==respContent){
                         MessageResponse.getTextMessage(fromUserName , toUserName , "服务号暂时无法回复，请稍后再试！");
                     }
-                    //return FormatXmlProcess.formatXmlAnswer(toUserName, fromUserName, respContent);
                     return MessageResponse.getTextMessage(fromUserName , toUserName , respContent);
                 }
-//				else if (content.startsWith("ZY")) {//查作业
-//					String keyWord = content.replaceAll("^ZY" , "").trim();
-//					if ("".equals(keyWord)) {
-//						respContent = AutoReply.getXxtUsage("24");
-//					} else {
-//						return XxtService.getHomework("24" , fromUserName , toUserName , keyWord);
-//					}
-//				} else if (content.startsWith("SJX")) {//收件箱
-//					String keyWord = content.replaceAll("^SJX" , "").trim();
-//					if ("".equals(keyWord)) {
-//						respContent = AutoReply.getXxtUsage("25");
-//					} else {
-//						return XxtService.getRecvBox("25" , fromUserName , toUserName , keyWord);
-//					}
-//				}
-//				return MessageResponse.getTextMessage(fromUserName , toUserName , respContent);
             } else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {// 事件推送
                 String eventType = requestMap.get("Event");// 事件类型
 
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {// 订阅
-                    respContent = "欢迎关注沪动校讯通！";
+                    respContent = "欢迎关注,功能自行探索。   (o゜▽゜)o☆[BINGO!] ！！";
                     return MessageResponse.getTextMessage(fromUserName , toUserName , respContent);
                 } else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {// 取消订阅
-                    // TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
+                    // 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
                 } else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {// 自定义菜单点击事件
                     String eventKey = requestMap.get("EventKey");// 事件KEY值，与创建自定义菜单时指定的KEY值对应
                     logger.info("eventKey is:" +eventKey);
                     return MenuClickService.getClickResponse(eventKey , fromUserName , toUserName);
                 }
             }
-
-
-
-
-
-            //开启微信声音识别测试 2015-3-30
+            //开启微信声音识别测试
             else if(msgType.equals("voice"))
             {
                 String recvMessage = requestMap.get("Recognition");
@@ -112,19 +89,12 @@ public class CoreService {
             }
             else
             {
-                return MessageResponse.getTextMessage(fromUserName , toUserName , "返回为空");
+                return MessageResponse.getTextMessage(fromUserName , toUserName , "我什么都没说");
             }
-
-
-
-
-
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(respMessage);
         return respMessage;
     }
-
 }

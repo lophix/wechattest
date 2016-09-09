@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -29,10 +30,13 @@ public class WechatController {
 
     @RequestMapping(value = "/wechat.do", method = RequestMethod.POST)
     @ResponseBody
-    public String reply(HttpServletRequest request){
+    public void reply(HttpServletRequest request, PrintWriter out){
         String respMessage = CoreService.processRequest(request);//调用CoreService类的processRequest方法接收、处理消息，并得到处理结果；
         // 响应消息
         //调用response.getWriter().write()方法将消息的处理结果返回给用户
-        return respMessage;
+        System.out.println("controller : "+respMessage);
+        out.print(respMessage);
+        out.flush();
+        out.close();
     }
 }
