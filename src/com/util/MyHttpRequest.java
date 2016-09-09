@@ -25,10 +25,11 @@ public class MyHttpRequest {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36");
             connection.setRequestProperty("Charsert", "UTF-8");
-            connection.connect();
             connection.setDoOutput(true);
+            connection.connect();
             out = new PrintWriter(connection.getOutputStream(), true);
             out.print(params);
+            out.flush();
             bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
             String resp;
             while ((resp = bufferedReader.readLine()) != null) {

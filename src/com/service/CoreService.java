@@ -123,7 +123,7 @@ public class CoreService {
         catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println(respMessage);
         return respMessage;
     }
 

@@ -8,6 +8,7 @@ import org.dom4j.io.SAXReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,16 +28,22 @@ public class XmlBeanTransfer {
             Document document = DocumentHelper.createDocument();
             Element root = document.addElement("xml");//添加根节点
             Field[] properties = obj.getClass().getDeclaredFields();//获得实体类的所有属性
+            List<Field> fields = new ArrayList<>();
+            Collections.addAll(fields,properties);
+            if (obj.getClass().getSuperclass() != null){
+                properties = obj.getClass().getSuperclass().getDeclaredFields();
+                Collections.addAll(fields, properties);
+            }
 
             //递归实体
-            for (int i = 0; i < properties.length; i++) {
+            for (int i = 0; i < fields.size(); i++) {
                 //反射get方法
                 Method meth = obj.getClass().getMethod("get"
-                        + properties[i].getName().substring(0, 1)
+                        + fields.get(i).getName().substring(0, 1)
                         .toUpperCase()
-                        + properties[i].getName().substring(1));
+                        + fields.get(i).getName().substring(1));
                 //为二级节点添加属性，属性值为对应属性的值
-                root.addElement(properties[i].getName()).setText(
+                root.addElement(fields.get(i).getName()).setText(
                         meth.invoke(obj).toString());
             }
             //生成XML文件
@@ -45,6 +52,7 @@ public class XmlBeanTransfer {
             System.out.println("写入XML文件结束,用时" + (lasting2 - lasting) + "ms");
         } catch (Exception e) {
             System.out.println("XML文件写入失败");
+            e.printStackTrace();
         }
         return result;
     }

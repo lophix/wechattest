@@ -45,12 +45,12 @@ public class TulingApiProcess {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            reader.close();
             // 断开连接
             connection.disconnect();
             JSONObject json = JSONObject.fromObject(sb.toString());
-            result = json.getString("text");
-
+            System.out.println(json.toString());
+            //result = json.getString("text");
+            reader.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {

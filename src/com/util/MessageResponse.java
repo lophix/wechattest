@@ -1,11 +1,8 @@
 package com.util;
 
-import com.bean.Article;
-import com.bean.NewsMessage;
 import com.bean.TextMessage;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * 
@@ -41,7 +38,7 @@ public class MessageResponse {
 	 * @param articleList
 	 * @return
 	 */
-	public static String getNewsMessage(String fromUserName , String toUserName , List<Article> articleList) {
+	/*public static String getNewsMessage(String fromUserName , String toUserName , List<Article> articleList) {
 		
 		NewsMessage newsMessage = new NewsMessage();
 		newsMessage.setToUserName(fromUserName);
@@ -56,5 +53,5 @@ public class MessageResponse {
 		newsMessage.setArticles(articleList);
 		// 将图文消息对象转换成xml字符串
 		return MessageUtil.newsMessageToXml(newsMessage);
-	}
+	}*/
 }

@@ -3,7 +3,7 @@ package com.bean;
 /**
  * 图文model
  * 
- * @author jiangyin
+ * @author xujian
  */
 public class Article {
 	// 图文消息名称  

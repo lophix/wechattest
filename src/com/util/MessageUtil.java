@@ -3,18 +3,12 @@ package com.util;
 import com.bean.Article;
 import com.bean.NewsMessage;
 import com.bean.TextMessage;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.core.util.QuickWriter;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.xml.XppDriver;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
-import java.io.Writer;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,6 +80,26 @@ public class MessageUtil {
      */
     public static final String EVENT_TYPE_CLICK = "CLICK";
 
+    public static String convertStreamToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "/n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
+
     /**
      * 解析微信发来的请求（XML）
      *
@@ -99,7 +113,10 @@ public class MessageUtil {
         Map<String, String> map = new HashMap<String, String>();
 
         // 从request中取得输入流
+        request.setCharacterEncoding("UTF-8");
         InputStream inputStream = request.getInputStream();
+        /*String str = convertStreamToString(inputStream);
+        System.out.println("msg : " + str);*/
         // 读取输入流
         SAXReader reader = new SAXReader();
         Document document = reader.read(inputStream);
@@ -126,8 +143,8 @@ public class MessageUtil {
      * @return xml
      */
     public static String textMessageToXml(TextMessage textMessage) {
-        xstream.alias("xml", textMessage.getClass());
-        return xstream.toXML(textMessage);
+        String result = XmlBeanTransfer.beanToXml(textMessage);
+        return result;
     }
 
     /**
@@ -147,16 +164,16 @@ public class MessageUtil {
      * @param newsMessage 图文消息对象
      * @return xml
      */
-    public static String newsMessageToXml(NewsMessage newsMessage) {
+    /*public static String newsMessageToXml(NewsMessage newsMessage) {
         xstream.alias("xml", newsMessage.getClass());
         xstream.alias("item", new Article().getClass());
         return xstream.toXML(newsMessage);
     }
 
-    /**
+    *//**
      * 扩展xstream，使其支持CDATA块
      *
-     */
+     *//*
     private static XStream xstream = new XStream(new XppDriver() {
         public HierarchicalStreamWriter createWriter(Writer out) {
             return new PrettyPrintWriter(out) {
@@ -180,5 +197,5 @@ public class MessageUtil {
                 }
             };
         }
-    });
+    });*/
 }
