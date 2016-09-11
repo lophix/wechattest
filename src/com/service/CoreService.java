@@ -15,9 +15,7 @@ import java.util.Map;
  */
 public class CoreService {
 
-
     static Logger logger = Logger.getLogger(CoreService.class);
-
     /**
      * 处理微信发来的请求
      *
