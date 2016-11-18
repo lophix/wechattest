@@ -25,7 +25,6 @@ public class MyTest {
         textMessage.setCreateTime(new Date().getTime());
         textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
         textMessage.setFuncFlag(0);
-
         textMessage.setContent("good morning");
         System.out.println(MessageUtil.textMessageToXml(textMessage));
     }
